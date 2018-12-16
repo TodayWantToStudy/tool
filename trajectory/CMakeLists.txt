@@ -8,20 +8,23 @@ project(trajectory)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  nav_msgs
   roscpp
   rospy
+  message_generation
   std_msgs
+  nav_msgs
   tf
 )
 
-#generate_messages(DEPENDENCIES std_msgs nav_msgs)
+add_message_files(FILES Time_route.msg)
+
+generate_messages(DEPENDENCIES std_msgs)
 
 
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES trajectory
-CATKIN_DEPENDS nav_msgs roscpp rospy std_msgs tf
+CATKIN_DEPENDS message_runtime nav_msgs roscpp rospy std_msgs tf
 #  DEPENDS system_lib
 )
 

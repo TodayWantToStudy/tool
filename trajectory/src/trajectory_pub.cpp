@@ -15,28 +15,28 @@ class Trajectory
 public:
 	unsigned int seq;
 	nav_msgs::Path path;
-	ros::Time start_time;
 	Trajectory()
 	{
 		seq=0;
-		start_time = ros::Time::now();
 		//Topic you want to subscribe
 		sub_ = n_.subscribe("odom",1000,&Trajectory::callback,this);
 		//Topic you want to publish
-		pub_ = n_.advertise<nav_msgs::Path>("trajectory",100, true);
+		pub_ = n_.advertise<nav_msgs::Path>("trajectory",1, true);
 	}
 	void callback(const nav_msgs::OdometryConstPtr& odom)
 	{
-		geometry_msgs::PoseStamped this_pose_stamped;
-		path.header=odom->header;
-		path.header.stamp = start_time;
-		path.header.seq=0;
-		this_pose_stamped.header=odom->header;
-		this_pose_stamped.header.seq=0;
-		this_pose_stamped.pose=odom->pose.pose;
-		path.poses.push_back(this_pose_stamped);
+		if(seq%333==0)
+		{
+			geometry_msgs::PoseStamped this_pose_stamped;
+			path.header=odom->header;
+			path.header.seq=seq;
+			this_pose_stamped.header=odom->header;
+			this_pose_stamped.header.seq=seq;
+			this_pose_stamped.pose=odom->pose.pose;
+			path.poses.push_back(this_pose_stamped);
+			pub_.publish(path);
+		}
 		seq++;
-		pub_.publish(path);
 	}
 private:
 	ros::NodeHandle n_; 
