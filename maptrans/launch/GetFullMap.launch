@@ -1,6 +1,8 @@
 <launch>
-	<node name="full_map" pkg="map_server" type="map_server" args="$(find maptrans)/map/map2.yaml" >	
+    <node name="full_map" pkg="map_server" type="map_server" args="$(find maptrans)/map/map.yaml" >
+	<!--node name="full_map" pkg="map_server" type="map_server" args="/home/neo/explore_ws/src/tool-master/maptrans/map/map.yaml" -->	
         <remap from="map" to="full_map"/>
         <remap from="map_metadata" to="full_map_metadata"/>
     </node>
+    <node name="occupy_percent" pkg="maptrans" type="occupy"/>
 </launch>
