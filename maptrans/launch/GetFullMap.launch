@@ -1,0 +1,6 @@
+<launch>
+	<node name="full_map" pkg="map_server" type="map_server" args="$(find maptrans)/map/map2.yaml" >	
+        <remap from="map" to="full_map"/>
+        <remap from="map_metadata" to="full_map_metadata"/>
+    </node>
+</launch>

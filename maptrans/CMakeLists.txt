@@ -34,5 +34,6 @@ include_directories(
 
 add_executable(fusionmap_pub src/trans.cpp)
 target_link_libraries(fusionmap_pub ${catkin_LIBRARIES})
-
+add_executable(occupy src/occupy.cpp)
+target_link_libraries(occupy ${catkin_LIBRARIES})
 
